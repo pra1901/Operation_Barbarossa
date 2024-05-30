@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Dancing Script', cursive;
+            margin: 0;
+            padding: 0;
+            background-color: #ffe6e6;
+            color: #333;
+            overflow: hidden;
+        }
+
+        header {
+            background-color: #ff4d4d;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        section {
+            display: none;
+            margin-bottom: 2rem;
+        }
+
+        .button {
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #e63946;
+        }
+
+        footer {
+            background-color: #ff4d4d;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .balloon {
+            width: 50px;
+            height: 70px;
+            background-color: red;
+            border-radius: 50% 50% 0 0;
+            position: absolute;
+            bottom: -100px;
+            animation: float 5s ease-in infinite;
+        }
+
+        .balloon::after {
+            content: '';
+            width: 2px;
+            height: 150px;
+            background-color: #333;
+            position: absolute;
+            bottom: -150px;
+            left: 50%;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+            50% {
+                transform: translateX(50px) translateY(-300px);
+            }
+            100% {
+                transform: translateX(0) translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Invitation</h1>
+    </header>
+    <main>
+        <section id="home" class="active">
+            <h2>Hello/Ciao/Bonjour Kristina !</h2>
+            <h3>I have a proposal for you. Click the button below to know more :)</h3>
+            <button class="button" onclick="showSection('invitation')">Know More</button>
+        </section>
+
+        <section id="invitation">
+            <h2>Phone Date !!!!</h2>
+            <h3>I would like to ask you out on a phone date. Dont worry its just you and me talking on phone that's all.</h3>
+            <button class="button" onclick="showBalloons()">Yes</button>
+            <button class="button" onclick="navigateTo('https://media.tenor.com/vIS6NJN40CAAAAAM/sereck.gif')">No</button>
+        </section>
+
+        <section id="balloons" style="display">
+            <h2>Yayyyyy !!!</h2>
+		<br><br><br><br><br><br>
+           <h3>Time: 20:00</h3> 
+	   <h3>Date: 30/05/2024</h3>
+	   <h3>Venue: Telegram</h3>
+	   
+	   <h4> Wine and cheese optional :P</h4>
+<br><br>
+		<h5>Pros: I'll get to hear your voice......
+			Cons: You'll get to hear my voice </h5>
+		
+        </section>
+    </main>
+    <footer>
+        <p></p>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Show the selected section
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+
+        function showBalloons() {
+            showSection('balloons');
+            for (let i = 0; i < 20; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.left = `${Math.random() * 100}%`;
+                balloon.style.backgroundColor = getRandomColor();
+                balloon.style.animationDuration = `${Math.random() * 3 + 3}s`;
+                document.body.appendChild(balloon);
+            }
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+</body>
+</html>
