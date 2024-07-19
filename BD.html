@@ -164,6 +164,14 @@
 
             const countdownInterval = setInterval(updateCountdown, 1000);
             updateCountdown();
+
+            // Simulate midnight for testing
+            setTimeout(() => {
+                clearInterval(countdownInterval);
+                countdownContainer.classList.add('hidden');
+                birthdayMessage.classList.remove('hidden');
+                startAnimations();
+            }, 2000); // Change to desired delay for testing (2 seconds here)
         });
     </script>
 </body>
