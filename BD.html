@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #countdown-container {
+            text-align: center;
+        }
+
+        #birthday-message {
+            text-align: center;
+        }
+
+        #girlfriend-photo {
+            width: 300px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: red;
+        }
+
+        #balloons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            background: radial-gradient(circle, #ff69b4 50%, #ff1493);
+            width: 30px;
+            height: 40px;
+            border-radius: 50%;
+            animation: rise 10s linear infinite;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-110vh);
+            }
+        }
+
+        #confetti {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff69b4;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="countdown-container">
+        <h1 id="countdown"></h1>
+    </div>
+    <div id="birthday-message" class="hidden">
+        <img src="photo1.jpg" alt="Girlfriend Photo" id="girlfriend-photo">
+        <h1>С Днём Рождения!</h1>
+        <div id="balloons"></div>
+        <div id="confetti"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const countdownElement = document.getElementById('countdown');
+            const birthdayMessage = document.getElementById('birthday-message');
+            const countdownContainer = document.getElementById('countdown-container');
+
+            function updateCountdown() {
+                const now = new Date();
+                const nextMidnight = new Date();
+                nextMidnight.setHours(24, 0, 0, 0); // Next midnight
+                const timeDifference = nextMidnight - now;
+                
+                const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+                
+                countdownElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
+                
+                if (timeDifference <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownContainer.classList.add('hidden');
+                    birthdayMessage.classList.remove('hidden');
+                    startAnimations();
+                }
+            }
+
+            function startAnimations() {
+                createBalloons();
+                createConfetti();
+            }
+
+            function createBalloons() {
+                const balloonContainer = document.getElementById('balloons');
+                for (let i = 0; i < 30; i++) {
+                    const balloon = document.createElement('div');
+                    balloon.classList.add('balloon');
+                    balloon.style.left = Math.random() * 100 + 'vw';
+                    balloon.style.animationDelay = Math.random() * 10 + 's';
+                    balloonContainer.appendChild(balloon);
+                }
+            }
+
+            function createConfetti() {
+                const confettiContainer = document.getElementById('confetti');
+                for (let i = 0; i < 100; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = getRandomColor();
+                    confetti.style.animationDelay = Math.random() * 5 + 's';
+                    confettiContainer.appendChild(confetti);
+                }
+            }
+
+            function getRandomColor() {
+                const colors = ['#ff69b4', '#ff1493', '#ffc0cb', '#ffb6c1', '#ff7f50'];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            const countdownInterval = setInterval(updateCountdown, 1000);
+            updateCountdown();
+        });
+    </script>
+</body>
+</html>
