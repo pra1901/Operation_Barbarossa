@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz "Us"</title>
+    <style>
+        body {
+            background-color: #ffe6e6;
+            font-family: 'Pacifico', cursive;
+            color: #ff69b4;
+            text-align: center;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1, h2 {
+            color: #ff1493;
+        }
+
+        button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff1493;
+        }
+
+        #quiz, #results {
+            margin-top: 30px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 10px 0;
+        }
+#questionText {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+        ul li button {
+            width: 100%;
+            padding: 10px;
+            background-color: #fff0f5;
+            border: 2px solid #ff69b4;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tatiana Evgenevna Yatsevich ! 💖</h1>
+            <p>Let's see how well you know about us! 😉</p>
+            <button id="startQuiz">Start Quiz</button>
+        </header>
+        <br>
+        <div id="quiz" style="display: none;">
+            <h2>Quiz Time! 🎉</h2>
+<br>
+            <div id="questionContainer">
+                <p id="questionText"></p>
+		<br><br>
+                <ul id="answerOptions"></ul>
+            </div>
+            <button id="nextBtn" style="display: none;">Next</button>
+        </div>
+
+        <div id="results" style="display: none;">
+            <h2>Your Result: 🏆</h2>
+            <p id="resultText"></p>
+        </div>
+    </div>
+
+    <script>
+        const startQuizBtn = document.getElementById('startQuiz');
+        const quizContainer = document.getElementById('quiz');
+        const questionText = document.getElementById('questionText');
+        const answerOptions = document.getElementById('answerOptions');
+        const nextBtn = document.getElementById('nextBtn');
+        const resultsContainer = document.getElementById('results');
+        const resultText = document.getElementById('resultText');
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const questions = [
+            {
+                question: "Where did we meet for the very first time?",
+                answers: [
+                    { text: "Railway Station", correct: false },
+                    { text: "Galileo Mall", correct: true },
+                    { text: "Dynama stadium", correct: false },
+                    { text: "We never met !", correct: false }
+                ]
+            },
+            {
+                question: "Where did we kiss for the first time?",
+                answers: [
+                    { text: "Dynama Stadium", correct: true },
+                    { text: "At your house", correct: false },
+                    { text: "Park Horkaha", correct: false },
+                    { text: "It was in a dream !", correct: false }
+                ]
+            },
+
+            {
+                question: "At which place I held your hand for the first time ?",
+                answers: [
+                    { text: "Antonawski Park", correct: true },
+                    { text: "Island of tears", correct: false },
+                    { text: "Victory Park", correct: false },
+                    { text: "Never happened, Alpha males never hold a woman's hand", correct: false }
+                ]
+            },
+
+            {
+                question: "What were you wearing on our first date?",
+                answers: [
+                    { text: "Dont remember", correct: false },
+                    { text: "blue jeans, black coat and shoes", correct: false },
+                    { text: "yellow skirt,green sweater and black heels ", correct: true },
+                    { text: "red sweater, jeans, heels", correct: false }
+                ]
+            },
+
+            {
+                question: "The first resturant we had date together?",
+                answers: [
+                    { text: "Burger King", correct: false },
+                    { text: "Dominos", correct: false },
+                    { text: "Saturn Cafe", correct: false },
+                    { text: "Mon Nom", correct: true }
+                ]
+            }
+        ];
+
+        startQuizBtn.addEventListener('click', startQuiz);
+
+        function startQuiz() {
+            startQuizBtn.style.display = 'none';
+            quizContainer.style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = questions[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            
+            currentQuestion.answers.forEach(answer => {
+                const button = document.createElement('button');
+                button.innerText = answer.text;
+                button.addEventListener('click', () => selectAnswer(answer.correct));
+                answerOptions.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.style.display = 'none';
+            while (answerOptions.firstChild) {
+                answerOptions.removeChild(answerOptions.firstChild);
+            }
+        }
+
+        function selectAnswer(correct) {
+            if (correct) {
+                score++;
+            }
+            nextBtn.style.display = 'block';
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        function showResults() {
+            quizContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            resultText.innerText = `You got ${score} out of ${questions.length} correct! You're amazing! 💖 Please smile :)`;
+        }
+    </script>
+</body>
+</html>
