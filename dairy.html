@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>12 Days With Klem</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Quicksand&display=swap" rel="stylesheet">
-  <style>
+<style>
     :root {
       --beige: #f5f5dc;
       --brown: #7b5e42;
@@ -42,13 +42,12 @@
     .book {
       perspective: 2000px;
       width: 100%;
-      max-width: 600px;
+      max-width: 800px;
       height: calc(100vh - 230px);
       position: relative;
       overflow: hidden;
       background-color: var(--beige);
       overflow-y: auto;
-
     }
 
     .page {
@@ -58,7 +57,7 @@
       top: 0; left: 0;
       background: var(--beige);
       padding: 60px 20px;
-      display: show;
+      display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -72,8 +71,9 @@
     }
 
     .page.active {
-
-      display:flex;
+      transform: rotateY(0deg);
+      opacity: 1;
+      z-index: 1;
     }
 
     h2 {
@@ -195,7 +195,18 @@
   ];
 
   const imageUrls = [
-    "day1.jpg"
+    "day1.jpg",
+    "day2.jpg",
+    "day3.jpg",
+    "day4.jpg",
+    "day5.jpg",
+    "day6.jpg",
+    "day7.jpg",
+    "day8.jpg",
+    "day9.jpg",
+    "day10.jpg",
+    "day11.jpg",
+    "day12.jpg"
 
 
   ];
