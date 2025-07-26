@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>12 Days With Klem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --beige: #f5f5dc;
+      --brown: #7b5e42;
+      --tan: #e6ddc4;
+      --cream: #fdfaf4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: var(--cream);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    header {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--brown);
+      padding: 30px;
+      background: var(--tan);
+      width: 100%;
+    }
+
+    .book {
+      perspective: 2000px;
+      width: 100%;
+      max-width: 800px;
+      height: calc(100vh - 230px);
+      position: relative;
+      overflow: hidden;
+      background-color: var(--beige);
+    }
+
+    .page {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0; left: 0;
+      background: var(--beige);
+      padding: 60px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+      opacity: 0;
+      transform: rotateY(90deg);
+      transition: transform 1s ease, opacity 1s ease;
+      text-align: center;
+    }
+
+    .page.active {
+      transform: rotateY(0deg);
+      opacity: 1;
+      z-index: 1;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: var(--brown);
+      margin-bottom: 15px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    p {
+      max-width: 600px;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    img {
+      width: 300px;
+      max-width: 90%;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px auto;
+    }
+
+    .nav-buttons button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 20px;
+      background-color: var(--brown);
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #5b4431;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: var(--tan);
+      color: var(--brown);
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    audio {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 999;
+      outline: none;
+    }
+
+    @media (max-width: 768px) {
+      audio {
+        width: 90%;
+        right: 5%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>12 Days With Klem</header>
+
+<div class="book" id="book"></div>
+
+<div class="nav-buttons">
+  <button onclick="prevPage()">⬅ Prev</button>
+  <button onclick="nextPage()">Next ➡</button>
+</div>
+
+<footer>Made by your's truly</footer>
+
+<audio controls loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  const days = [
+    "Sleeping in your bed",
+    "Sex Sex Sex",
+    "Oatmeal with banana and blueberries",
+    "Eating with phil and the no condom dilemma",
+    "making out, making out....",
+    "Pasta Orzo",
+    "Night Out",
+    "Zooooooooooooo",
+    "Stardew Valley and The Outlander",
+    "Strawberry Pasta",
+    "Orgasm and Garlic bread",
+    "Cake and goodbye"
+  ];
+
+  const texts = [
+    "Thursday the 3rd was the first time I slept in your beautiful, clean :P bed. And having dinner before with lot of conversations was amazing",
+    "Well we both were horny, so there was a lot of sweat and lot of blood, like an action movie &#128518;",
+    "One of the best breakfast I had in my life, full of warmth and care",
+    "Our first Food Tv series together, yeah I know we didnt see the first episode &#128540;. And you wanted me to orgasm so bad but I chickened out lol",
+    "One of the hottest make out I had with you, It's 1 am and I need to wake up at 4 am, but you are on top of me....",
+    "It was a long journey but dinner with you took all my tiredness away.... And yes ofcourse a night of love making",
+    "We had a night out together ! It was so fun taking the bus with you for the first time",
+    "Exploring the zoo with you was so good ! The discissions, the feeding and exchanging animal facts..",
+    "We finally were able to make our own world in Stardew Valley ! and we started The Outlander, I really need to see the fourth episode, because last one was a cliffhanger ",
+    "Yeah that was a different and weird experience but I am up for it again but only for breakfast &#128518; &#128518;",
+    "So finally I orgasmed inside (not in you) you the second time !!! And the late night garlic bread was amazing",
+    "The cake you made in the morning was so mamma mia, exactly how I like it. Thank you so much for it. This is my 12 days journey with you"
+  ];
+
+  const book = document.getElementById('book');
+  let currentPage = 0;
+
+  function createPages() {
+    for (let i = 0; i < days.length; i++) {
+      const div = document.createElement('div');
+      div.className = 'page';
+      div.id = `page-${i}`;
+      div.innerHTML = `
+        <h2>Day ${i + 1}: ${days[i]}</h2>
+        <p>${texts[i]}</p>
+        <img src="https://via.placeholder.com/400x250.png?text=Day+${i+1}" alt="Day ${i+1}">
+      `;
+      book.appendChild(div);
+    }
+    updatePage();
+  }
+
+  function updatePage() {
+    const allPages = document.querySelectorAll('.page');
+    allPages.forEach(p => p.classList.remove('active'));
+    const page = document.getElementById(`page-${currentPage}`);
+    if (page) page.classList.add('active');
+  }
+
+  function nextPage() {
+    if (currentPage < days.length - 1) {
+      currentPage++;
+      updatePage();
+    }
+  }
+
+  function prevPage() {
+    if (currentPage > 0) {
+      currentPage--;
+      updatePage();
+    }
+  }
+
+  createPages();
+</script>
+
+</body>
+</html>
