@@ -42,22 +42,23 @@
     .book {
       perspective: 2000px;
       width: 100%;
-      max-width: 800px;
+      max-width: 600px;
       height: calc(100vh - 230px);
       position: relative;
       overflow: hidden;
       background-color: var(--beige);
       overflow-y: auto;
+
     }
 
     .page {
       width: 100%;
       height: 100%;
-      position: relative;
+      position: absolute;
       top: 0; left: 0;
       background: var(--beige);
       padding: 60px 20px;
-      display: none;
+      display: show;
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -71,9 +72,7 @@
     }
 
     .page.active {
-      transform: rotateY(0deg);
-      opacity: 1;
-      z-index: 1;
+
       display:flex;
     }
 
