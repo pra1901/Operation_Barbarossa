@@ -29,7 +29,7 @@ body {
   overflow-x: hidden; /* Allow vertical scroll */
   margin: 0;
   padding: 0;
-  padding-top: 100px; /* Add space so content starts below header */
+  padding-top: calc(30px * 2 + 3rem); /* Add space so content starts below header */
 }
 
 header {
@@ -38,13 +38,15 @@ header {
   left: 0;
   width: 100%;
   background: var(--tan);
-  padding: 30px;
+  padding: 30px 20px; /* Add horizontal padding */
   font-family: 'Playfair Display', serif;
   font-size: 2.8rem;
   color: var(--brown);
   text-align: center;
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  line-height: 1.2;
+  height: auto;
 }
 
 .book {
@@ -117,10 +119,13 @@ audio {
   outline: none;
 }
 
-@media (max-width: 768px) {
-  audio {
-    width: 90%;
-    right: 5%;
+@media (max-width: 480px) {
+  header {
+    font-size: 2rem;
+    padding: 20px 15px;
+  }
+  body {
+    padding-top: calc(20px * 2 + 2rem);
   }
 }
 
